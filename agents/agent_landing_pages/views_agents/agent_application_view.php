@@ -82,7 +82,7 @@ $page_title = 'Freight Agents | Ajax Transport';
             xxxxxx
           </li>
           <li>
-            zzzzz
+            zzzzzz
           </li>
         </ol>
       </section>
@@ -98,7 +98,7 @@ $page_title = 'Freight Agents | Ajax Transport';
         <header>
           <h2>Talk to us today</h2>
         </header>
-        <p>pppp</p>
+        <p>ppppp</p>
       </section>
 
     </div>
@@ -150,7 +150,6 @@ $page_title = 'Freight Agents | Ajax Transport';
               var email = form.querySelector('[name="email"]').value;
               var emailVerify = form.querySelector('[name="emailVerify"]').value;
 
-
               //create ajax object from my library
               var ajax = getXmlHttpRequest();
 
@@ -201,7 +200,6 @@ $page_title = 'Freight Agents | Ajax Transport';
 
           }
           ;// END ajax request
-
           window.onload = function () {
               //$('show').style.display = 'none';
             //  $('proceed').style.display = 'none';
@@ -211,7 +209,6 @@ $page_title = 'Freight Agents | Ajax Transport';
               }, true);
           };
       </script>
-
 
       <?php
           include('../../footers/footer_utilities.inc.php');
