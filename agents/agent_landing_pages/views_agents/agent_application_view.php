@@ -31,7 +31,18 @@
 
 <script type="text/javascript" src = "http://www.dukesnuz.com/js_libs/dukes.javascript.js"></script>
 
-
+<!-- add input type tel to style sheet-->
+<style>
+div#form_center input[type="tel"] {
+  border-radius: 3px;
+width: 100%;
+border: 1px solid #454341;
+background-color: #ffffff;
+padding: 5px 0;
+padding-left: 0px;
+padding-left: 2px;
+}
+</style>
 <body>
 
   <main class = "bg_color">
@@ -109,37 +120,55 @@ zzzzzz
 
     <div id ="form_center">
       <div id ='formResponse'></div>
+
       <form action="agent_application.php" method="post" name="form" id="form">
-       <input type="text" name="key" value="">
+
+        <input type="text" name="key" value="<?php echo AJAX_API_KEY; ?>">
+
+        <p><label for="first_name">First Name:</label>
+          <input type="text" name="first_name" id="first_name" placeholder="Your first name" value = "<?php
+          if (isset($first_name)) {
+            echo htmlspecialchars($first_name);
+          };
+          ?>" >
+          <span class="errorMessage" id="error_first_name"></span></p>
+
+
+          <p><label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" id="first_name" placeholder="Your last name" value = "<?php
+            if (isset($last_name)) {
+              echo htmlspecialchars($last_name);
+            };
+            ?>" >
+            <span class="errorMessage" id="error_last_name"></span></p>
+
+
+            <p><label for="telephone">telephone:</label>
+              <input type="tel" name="telephone" id="telephone" placeholder="Your telephone" value = "<?php
+              if (isset($telephone)) {
+                echo htmlspecialchars($telephone);
+              };
+              ?>" >
+              <span class="errorMessage" id="error_telephone"></span></p>
+
+
+
 
         <p><label for="email">Email:</label>
           <input type="email" name="email" id="email" placeholder="Your Email" value = "<?php
           if (isset($email)) {
             echo htmlspecialchars($email);
           };
-          ?>" ></p>
-          <span class="errorMessage">
-            <?php
-            if (isset($errors['email'])) {
-              //echo $errors['email'];
-            }
-            ?>
-          </span>
-
+          ?>" >
+          <span class="errorMessage" id="error_email"></span></p>
 
           <p><label for="emailVerify">Re-enter Email:</label>
             <input type ="email" name ="emailVerify" id ="emailVerify" placeholder="Verify Your Email" value = "<?php
             if (isset($emailVerify)) {
               echo htmlspecialchars($emailVerify);
             };
-            ?>"></p>
-            <span class="errorMessage">
-              <?php
-              if (isset($errors['emailVerify'])) {
-                //echo $errors['emailVerify'];
-              }
-              ?>
-            </span>
+            ?>">
+            <span class="errorMessage"></span></p>
 
             <p><input type ="submit" value ="Submit"></p>
 
@@ -155,17 +184,27 @@ zzzzzz
       "use strict";
       e.preventDefault();
       console.log('submit');
-      //$('formResponse').innerHTML = 'Processing ... This may take 2 minutes.';
+      // clear error messages
+      $('formResponse').innerHTML = '';
+      $('error_first_name').innerHTML = '';
+      $('error_last_name').innerHTML = '';
+      $('error_telephone').innerHTML = '';
+      $('error_email').innerHTML = '';
 
       var form = document.forms['form'];
 
-      var fn = 'david';
-      var ln = 'pet';
+      var key = form.querySelector('[name="key"]').value;
+      var first_name = form.querySelector('[name="first_name"]').value;
+      var last_name = form.querySelector('[name="last_name"]').value;
       var email = form.querySelector('[name="email"]').value;
       var emailVerify = form.querySelector('[name="emailVerify"]').value;
-      var key = form.querySelector('[name="key"]').value;
+      var telephone = form.querySelector('[name="telephone"]').value;
+
       console.log(key);
+      console.log(first_name);
+      console.log(last_name);
       console.log(email);
+      console.log(telephone);
 
       //create ajax object from my library
       var ajax = getXmlHttpRequest();
@@ -175,29 +214,33 @@ zzzzzz
         if (ajax.readyState === 4) {
           console.log(this.response);
           if ((this.response !== "error") && (ajax.status >= 200 && ajax.status < 300) || (ajax.status == 304)) {
-            // clear error if one was previosuly printed
-            // errorPrint('formResponse', '');
 
             var response = this.response;
 
             // check for errors
-            //if (this.response == true) {
-
-            if (response.substring(0, 6) === 'succes') {
+            if (response.substring(0, 6) === 200) {
               //location.reload();
-              $('formResponse').innerHTML = '<h3>Found: ' + response.substring(6) +'</h3>';
-              $('form').style.display = 'none';
+              //$('formResponse').innerHTML = '<h3>ok</h3>';
+
               //$('show').style.display = 'inline-block';
-              $('proceed').style.display = 'inline-block';
-
-            } else if (response == 'The email addresses do not match.') {
-              $('formResponse').innerHTML = '<p>' + response + '</p>';
-            } else if (response == 'Please enter your email.') {
-              $('formResponse').innerHTML = '<p>' + response + '</p>';
-
+              //$('proceed').style.display = 'inline-block';
+            } else if (response == 200) {
+              $('formResponse').innerHTML = 'Thank you for submitting your application.';
+              $('form').style.display = 'none';
+              document.getElementsByClassName('ip')[0].style.display = 'none';
+            } else if (response == 'no_first_name') {
+              $('error_first_name').innerHTML = 'Please enter your first name.';
+            } else if (response == 'no_last_name') {
+              $('error_last_name').innerHTML = 'Please enter your last name.';
+            } else if (response == 'no_match') {
+              $('error_email').innerHTML = 'The email addresses do not match.';
+            } else if (response == 'no_email') {
+              $('error_email').innerHTML = 'Please enter an email address.';
+            } else if (response == 'no_telephone') {
+              $('error_telephone').innerHTML = 'Please enter your telephone.';
             } else {
               $('formResponse').innerHTML = '<p>' + response + '</p>';
-              errorPrint('formResponse', '<p>Error. Did you fill in all the fields?</p>');
+              errorPrint('formResponse', '<p>OOppss. System error.</p>');
             }
 
           } else {
@@ -206,7 +249,7 @@ zzzzzz
         } // END if (ajax.readyState === 4)
       }, false);
 
-      var data = ['first_name=' + fn, 'last_name=' + ln, 'email=' + email, 'key=' + key];
+      var data = ['key=' + key, 'first_name=' + first_name, 'last_name=' + last_name, 'email=' + email, 'emailVerify=' + emailVerify, 'telephone=' + telephone];
       ajax.open('POST', 'http://localhost/ajax/ajax_transport/agents/api_agents/add_agent_application.php', true);
       ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       ajax.send(data.join('&'));
