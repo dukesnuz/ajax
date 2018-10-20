@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
   } elseif (empty($_POST['last_name'])) {
     echo 'no_last_name';
     die();
-  } elseif (empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+  } elseif (empty($_POST['email']) || filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) == FALSE) {
     echo 'no_email';
     die();
   } elseif (empty($_POST['telephone'])) {
@@ -37,20 +37,19 @@ $email = filter_input(INPUT_POST, 'email');
 $emailVerify = filter_input(INPUT_POST, 'emailVerify');
 //	$p = str_replace(array('', '-', '(', ')'), '', $p);
 $telephone = filter_input(INPUT_POST, 'telephone');
-$telephone_stripped = str_replace(array('', '-', '(', ')'), '', $telephone);
+$telephone_stripped = str_replace(array(' ', '-', '(', ')'), '', $telephone);
 
 require_once ('../../includes_2/database_ajax.php');
 
 //add contact to db
-$q = "INSERT INTO `agent_applications`(`first_name`, `last_name`, `email`, 'telephone')
-                                VALUES (:first_name, :last_name, :email, :telephone)";
+$q = "INSERT INTO `agent_applications`(`first_name`, `last_name`, `email`, `telephone`)
+                                VALUES (:first_name, :last_name, :email, :telephone_stripped)";
 
 $statement_add = $dba -> prepare($q);
 $statement_add -> bindValue(':first_name', $first_name);
 $statement_add -> bindValue(':last_name', $last_name);
 $statement_add -> bindValue(':email', $email);
-//$statement_add -> bindValue(':telephone', $telephone_stripped);
-$statement_add -> bindValue(':telephone', $telephone_stripped);
+$statement_add -> bindValue(':telephone_stripped', $telephone_stripped);
 
 
 $statement_add -> execute();
