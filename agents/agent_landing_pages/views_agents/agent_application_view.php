@@ -8,10 +8,9 @@
     ?>
   </title>
   <meta charset="UTF-8" />
-  <meta name="description" content =" "
-  <meta name="keywords" content="">
+  <meta name="description" content ="Agent application">
+  <meta name="keywords" content="freight agents">
   <meta name="author" content="David Petringa, Coded October 2018">
-
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
   <link rel = "stylesheet" href = "http://www.dukesnuz.com/css_libs/dukes_normalize.css"/>
@@ -29,7 +28,7 @@
 <link href="../../css/home_page_desktop.css" rel="stylesheet" type="text/css" />
 <link href="../../css/navigation.css" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src = "http://www.dukesnuz.com/js_libs/dukes.javascript.js"></script>
+<script src = "http://www.dukesnuz.com/js_libs/dukes.javascript.js"></script>
 
 <!-- add input type tel to style sheet-->
 <style>
@@ -124,11 +123,12 @@ zzzzzz
       <a href="http://localhost/ajax/ajax_transport/agents/agent_landing_pages/agent_application.php">refresh for dev</a>
       <form action="agent_application.php" method="post" name="form" id="form">
 
-        <input type="text" name="key" value="<?php echo AJAX_API_KEY; ?>">
+        <fieldset>
+          <legend>Your Contact Information</legend>
 
-        <p><label for="first_name">First Name:</label>
-          <fieldset>
-            <legend>Your Contact Information</legend>
+          <input type="text" name="key" value="<?php echo AJAX_API_KEY; ?>">
+
+          <p><label for="first_name">First Name:</label>
             <input type="text" name="first_name" id="first_name" placeholder="Your first name" value = "<?php
             if (isset($first_name)) {
               echo htmlspecialchars($first_name);
@@ -138,7 +138,7 @@ zzzzzz
 
 
             <p><label for="last_name">Last Name:</label>
-              <input type="text" name="last_name" id="first_name" placeholder="Your last name" value = "<?php
+              <input type="text" name="last_name" id="last_name" placeholder="Your last name" value = "<?php
               if (isset($last_name)) {
                 echo htmlspecialchars($last_name);
               };
@@ -186,7 +186,6 @@ zzzzzz
                         ?>" >
                         <span class="errorMessage" id="error_zip"></span></p>
 
-
                         <p><label for="telephone">telephone:</label>
                           <input type="tel" name="telephone" id="telephone" placeholder="Your telephone" value = "<?php
                           if (isset($telephone)) {
@@ -210,8 +209,14 @@ zzzzzz
                               };
                               ?>">
                               <span class="errorMessage"></span></p>
+
                             </fieldset>
 
+                            <fieldset>
+                              <legend>About You</legend>
+
+
+                            </fieldset>
                             <p><input type ="submit" value ="Submit"></p>
 
                           </form>
