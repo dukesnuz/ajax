@@ -34,6 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
   } elseif ($_POST['email'] !== $_POST['emailVerify']) {
     echo 'no_match';
     die();
+  } elseif ($_POST['background'] == 'undefined') {
+    echo 'no_background';
+    die();
   } else {
 
   }
@@ -61,12 +64,13 @@ if(is_numeric($telephone_stripped) == FALSE || strlen($telephone_stripped) !== 1
   echo 'no_telephone';
   die();
 }
+$background = filter_input(INPUT_POST, 'background');
 
 require_once ('../../includes_2/database_ajax.php');
 
 //add contact to db below query using backticks
-$q = "INSERT INTO `agent_applications`(`first_name`, `last_name`, `email`, `telephone`, `address`, `suite`, `city`, `state`, `zip`)
-VALUES (:first_name, :last_name, :email, :telephone_stripped, :address, :suite, :city, :state, :zip)";
+$q = "INSERT INTO `agent_applications`(`first_name`, `last_name`, `email`, `telephone`, `address`, `suite`, `city`, `state`, `zip`, `background`)
+VALUES (:first_name, :last_name, :email, :telephone_stripped, :address, :suite, :city, :state, :zip, :background)";
 
 $statement_add = $dba -> prepare($q);
 $statement_add -> bindValue(':first_name', $first_name);
@@ -78,6 +82,7 @@ $statement_add -> bindValue(':suite', $suite);
 $statement_add -> bindValue(':city', $city);
 $statement_add -> bindValue(':state', $state);
 $statement_add -> bindValue(':zip', $zip);
+$statement_add -> bindValue(':background', $background);
 
 $statement_add -> execute();
 $statement_add -> closeCursor();

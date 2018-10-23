@@ -32,7 +32,7 @@
 
 <!-- add input type tel to style sheet-->
 <style>
-div#form_center input[type="tel"] {
+div#form_center input[type="tel"]{
   border-radius: 3px;
   width: 100%;
   border: 1px solid #454341;
@@ -40,6 +40,18 @@ div#form_center input[type="tel"] {
   padding: 5px 0;
   padding-left: 0px;
   padding-left: 2px;
+}
+.radio-toolbar label {
+  display: inline-block;
+  background-color: #ddd;
+  padding: 4px 11px;
+  font-family: Arial;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.radio-toolbar input[type="radio"]:checked+label {
+  background-color: #bbb;
 }
 </style>
 <body>
@@ -212,14 +224,25 @@ zzzzzz
 
                             </fieldset>
 
-                            <fieldset>
+                            <fieldset style = "width: 500px;">
+
                               <legend>About You</legend>
-
-
+                              <p>
+                                <div class="radio-toolbar">
+                                <label>Can you pass a mandatory background check?</label><br />
+                                <input type="radio" name="backgrounds" value="true"
+                                <?php if (isset($_POST['backgrounds']) && $_POST['backgrounds'] == "true") echo 'checked="checked"';?>>Yes
+                                <input type="radio" name="backgrounds" value="false"
+                                <?php if (isset($_POST['backgrounds']) && $_POST['backgrounds'] == "false") echo 'checked="checked"';?>>No
+                                <span class="errorMessage" id="error_background"></span>
+                              </p>
+                            </div>
+                            
                             </fieldset>
                             <p><input type ="submit" value ="Submit"></p>
 
                           </form>
+                          <a href="http://localhost/ajax/ajax_transport/agents/agent_landing_pages/agent_application.php">refresh for dev</a>
                           <p class ='ip'>Your ip address is : <?php echo htmlspecialchars($ip); ?></p>
                         </div>
                       </div>
@@ -242,12 +265,14 @@ zzzzzz
                       $('city').innerHTML = '';
                       $('state').innerHTML = '';
                       $('zip').innerHTML = '';
+                      //$('background').innerHTML = '';
 
                       var form = document.forms['form'];
 
                       var key = form.querySelector('[name="key"]').value;
                       var first_name = form.querySelector('[name="first_name"]').value;
                       var last_name = form.querySelector('[name="last_name"]').value;
+                      var telephone = form.querySelector('[name="telephone"]').value;
                       var address = form.querySelector('[name="address"]').value;
                       var suite = form.querySelector('[name="suite"]').value;
                       var city = form.querySelector('[name="city"]').value;
@@ -255,15 +280,29 @@ zzzzzz
                       var zip = form.querySelector('[name="zip"]').value;
                       var email = form.querySelector('[name="email"]').value;
                       var emailVerify = form.querySelector('[name="emailVerify"]').value;
-                      var telephone = form.querySelector('[name="telephone"]').value;
+                      // get value of radio background button
+                      var backgrounds = document.getElementsByName("backgrounds");
+                      console.log(backgrounds);
+                      var length = backgrounds.length;
+                      for(var i = 0;  i < length; i++)
+                      {
+                        if(backgrounds[i].checked)
+                        {
+                          // alert(backgrounds[i].value);
+                          var background = backgrounds[i].value;
+                          console.log(background);
+                          break;
+                        }
+                      }
 
-
+                      /*
                       console.log(key);
                       console.log(first_name);
                       console.log(last_name);
                       console.log(email);
                       console.log(telephone);
                       console.log(address);
+                      */
 
                       //create ajax object from my library
                       var ajax = getXmlHttpRequest();
@@ -304,6 +343,8 @@ zzzzzz
                               $('error_email').innerHTML = 'Please enter an email address.';
                             } else if (response == 'no_telephone') {
                               $('error_telephone').innerHTML = 'Please enter your telephone as<br>123-456-7899';
+                            } else if (response == 'no_background') {
+                              $('error_background').innerHTML = 'Please answer the background question.';
                             } else {
                               $('formResponse').innerHTML = '<p>' + response + '</p>';
                               errorPrint('formResponse', '<p>OOppss. System error.</p>');
@@ -316,17 +357,21 @@ zzzzzz
                         } // END if (ajax.readyState === 4)
                       }, false);
 
-                      var data = ['key=' + key,
-                      'first_name=' + first_name,
-                      'last_name=' + last_name,
-                      'address=' + address,
-                      'suite=' + suite,
-                      'city=' + city,
-                      'state=' + state,
-                      'zip=' + zip,
-                      'email=' + email,
-                      'emailVerify=' + emailVerify,
-                      'telephone=' + telephone];
+                      var data = [
+                        'key=' + key,
+                        'first_name=' + first_name,
+                        'last_name=' + last_name,
+                        'address=' + address,
+                        'suite=' + suite,
+                        'city=' + city,
+                        'state=' + state,
+                        'zip=' + zip,
+                        'email=' + email,
+                        'emailVerify=' + emailVerify,
+                        'telephone=' + telephone,
+                        'background=' + background
+                      ];
+
                       ajax.open('POST', 'http://localhost/ajax/ajax_transport/agents/api_agents/add_agent_application.php', true);
                       ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                       ajax.send(data.join('&'));
