@@ -32,6 +32,15 @@
 
 <!-- add input type tel to style sheet-->
 <style>
+.errorMessage {
+  font-size: .85em;
+  font-weight: bold;
+  color: #ff0000;
+}
+label:before {
+  content: '* ';
+  color: #ff0000;
+}
 div#form_center input[type="tel"]{
   border-radius: 3px;
   width: 100%;
@@ -52,6 +61,9 @@ div#form_center input[type="tel"]{
 
 .radio-toolbar input[type="radio"]:checked+label {
   background-color: #bbb;
+}
+div#form_center p {
+  color: #454341;
 }
 </style>
 <body>
@@ -205,7 +217,7 @@ zzzzzz
                           };
                           ?>" >
                           <span class="errorMessage" id="error_telephone"></span></p>
-
+                          
                           <p><label for="email">Email:</label>
                             <input type="email" name="email" id="email" placeholder="Your Email" value = "<?php
                             if (isset($email)) {
@@ -227,17 +239,37 @@ zzzzzz
                             <fieldset style = "width: 500px;">
 
                               <legend>About You</legend>
-                              <p>
-                                <div class="radio-toolbar">
-                                <label>Can you pass a mandatory background check?</label><br />
-                                <input type="radio" name="backgrounds" value="true"
-                                <?php if (isset($_POST['backgrounds']) && $_POST['backgrounds'] == "true") echo 'checked="checked"';?>>Yes
-                                <input type="radio" name="backgrounds" value="false"
-                                <?php if (isset($_POST['backgrounds']) && $_POST['backgrounds'] == "false") echo 'checked="checked"';?>>No
-                                <span class="errorMessage" id="error_background"></span>
-                              </p>
-                            </div>
-                            
+
+                              <div class="radio-toolbar">
+                                <p>
+                                  <label>Can you pass a mandatory background check?</label><br />
+                                  <input type="radio" name="backgrounds" value="true"
+                                  <?php if (isset($_POST['backgrounds']) && $_POST['backgrounds'] == "true") echo 'checked="checked"';?>>Yes
+                                  <input type="radio" name="backgrounds" value="false"
+                                  <?php if (isset($_POST['backgrounds']) && $_POST['backgrounds'] == "false") echo 'checked="checked"';?>>No
+                                  <span class="errorMessage" id="error_background"></span>
+                                </p>
+
+                                <p>
+                                  <label>Can you show proof of your legal rigt to work in the United States?</label><br />
+                                  <input type="radio" name="right_works" value="true"
+                                  <?php if (isset($_POST['right_works']) && $_POST['right_works'] == "true") echo 'checked="checked"';?>>Yes
+                                  <input type="radio" name="right_works" value="false"
+                                  <?php if (isset($_POST['right_works']) && $_POST['right_works'] == "false") echo 'checked="checked"';?>>No
+                                  <span class="errorMessage" id="error_right_work"></span>
+                                </p>
+
+                                <p>
+                                  <label>Do you have previous experiences as a freight broker?</label><br />
+                                  <input type="radio" name="experiences" value="true"
+                                  <?php if (isset($_POST['experiences']) && $_POST['experiences'] == "true") echo 'checked="checked"';?>>Yes
+                                  <input type="radio" name="experiences" value="false"
+                                  <?php if (isset($_POST['experiences']) && $_POST['experiences'] == "false") echo 'checked="checked"';?>>No
+                                  <span class="errorMessage" id="error_experience"></span>
+                                </p>
+
+                              </div>
+
                             </fieldset>
                             <p><input type ="submit" value ="Submit"></p>
 
@@ -260,12 +292,14 @@ zzzzzz
                       $('error_last_name').innerHTML = '';
                       $('error_telephone').innerHTML = '';
                       $('error_email').innerHTML = '';
-                      $('address').innerHTML = '';
-                      $('suite').innerHTML = '';
-                      $('city').innerHTML = '';
-                      $('state').innerHTML = '';
-                      $('zip').innerHTML = '';
-                      //$('background').innerHTML = '';
+                      $('error_address').innerHTML = '';
+                      $('error_suite').innerHTML = '';
+                      $('error_city').innerHTML = '';
+                      $('error_state').innerHTML = '';
+                      $('error_zip').innerHTML = '';
+                      $('error_background').innerHTML = '';
+                      $('error_right_work').innerHTML = '';
+                      $('error_experience').innerHTML = '';
 
                       var form = document.forms['form'];
 
@@ -280,29 +314,41 @@ zzzzzz
                       var zip = form.querySelector('[name="zip"]').value;
                       var email = form.querySelector('[name="email"]').value;
                       var emailVerify = form.querySelector('[name="emailVerify"]').value;
-                      // get value of radio background button
+                      // get value of radio backgrounds button
                       var backgrounds = document.getElementsByName("backgrounds");
-                      console.log(backgrounds);
                       var length = backgrounds.length;
                       for(var i = 0;  i < length; i++)
                       {
                         if(backgrounds[i].checked)
                         {
-                          // alert(backgrounds[i].value);
                           var background = backgrounds[i].value;
-                          console.log(background);
                           break;
                         }
                       }
 
-                      /*
-                      console.log(key);
-                      console.log(first_name);
-                      console.log(last_name);
-                      console.log(email);
-                      console.log(telephone);
-                      console.log(address);
-                      */
+                      // get value of radio right_works button
+                      var right_works = document.getElementsByName("right_works");
+                      var length = right_works.length;
+                      for(var i = 0;  i < length; i++)
+                      {
+                        if(right_works[i].checked)
+                        {
+                          var right_work = right_works[i].value;
+                          break;
+                        }
+                      }
+
+                      // get value of radio experiences button
+                      var experiences = document.getElementsByName("experiences");
+                      var length = experiences.length;
+                      for(var i = 0;  i < length; i++)
+                      {
+                        if(experiences[i].checked)
+                        {
+                          var experience = experiences[i].value;
+                          break;
+                        }
+                      }
 
                       //create ajax object from my library
                       var ajax = getXmlHttpRequest();
@@ -316,11 +362,7 @@ zzzzzz
                             var response = this.response;
                             // check for errors
                             if (response.substring(0, 6) === 200) {
-                              //location.reload();
-                              //$('formResponse').innerHTML = '<h3>ok</h3>';
 
-                              //$('show').style.display = 'inline-block';
-                              //$('proceed').style.display = 'inline-block';
                             } else if (response == 200) {
                               $('formResponse').innerHTML = 'Thank you for submitting your application.';
                               $('form').style.display = 'none';
@@ -344,7 +386,11 @@ zzzzzz
                             } else if (response == 'no_telephone') {
                               $('error_telephone').innerHTML = 'Please enter your telephone as<br>123-456-7899';
                             } else if (response == 'no_background') {
-                              $('error_background').innerHTML = 'Please answer the background question.';
+                              $('error_background').innerHTML = 'Please answer this question.';
+                            } else if (response == 'no_right_work') {
+                              $('error_right_work').innerHTML = 'Please answer this question.';
+                            } else if (response == 'no_experience') {
+                              $('error_experience').innerHTML = 'Please answer this question.';
                             } else {
                               $('formResponse').innerHTML = '<p>' + response + '</p>';
                               errorPrint('formResponse', '<p>OOppss. System error.</p>');
@@ -369,7 +415,9 @@ zzzzzz
                         'email=' + email,
                         'emailVerify=' + emailVerify,
                         'telephone=' + telephone,
-                        'background=' + background
+                        'background=' + background,
+                        'right_work=' + right_work,
+                        'experience=' + experience,
                       ];
 
                       ajax.open('POST', 'http://localhost/ajax/ajax_transport/agents/api_agents/add_agent_application.php', true);
