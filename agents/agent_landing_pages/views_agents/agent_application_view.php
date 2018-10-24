@@ -38,13 +38,11 @@ body {
 .errorMessage {
     display: block;
 }
-div#form_center {
-  margin: 0;
-  padding-left: 5%;
-  width: 500px;
-}
 div#form_center p {
   color: #454341;
+}
+div#form_center {
+  width: 500px;
 }
 fieldset {
   margin-top: 25px;
@@ -113,7 +111,7 @@ div#form_center input[type="tel"]{
     <div class ="slogan"><h2>freight broker agents</h2></div>
 
     <div id ="displayArea">
-
+<!--
       <section class = "wd_box">
       <header>
       <h2>Why</h2>
@@ -158,7 +156,7 @@ zzzzzz
 </header>
 <p>vvvvv</p>
 </section>
-
+-->
 </div>
 
 
