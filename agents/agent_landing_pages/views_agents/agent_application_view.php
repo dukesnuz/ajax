@@ -272,14 +272,40 @@ zzzzzz
                                  How did you hear about this position?
                                  <select name="hear_about">
                                    <option value="">Select...</option>
-                                   <option value="indeed<?php if(isset($_POST['hearAbout'])&&$_POST['hearAbout'] == 'indeed'){echo 'selected="selected"';}?>">Indeed</option>
-                                   <option value="internet search<?php if(isset($_POST['hearAbout'])&&$_POST['hearAbout'] == 'internet search'){echo 'selected="selected"';}?>">Internet search</option>
-                                   <option value="email<?php if(isset($_POST['hearAbout'])&&$_POST['hearAbout'] == 'email'){echo 'selected="selected"';}?>">Email from Ajax</option>
-                                   <option value="linkedin<?php if(isset($_POST['hearAbout'])&&$_POST['hearAbout'] == 'linkedin'){echo 'selected="selected"';}?>">LinkedIn</option>
-                                   <option value="other<?php if(isset($_POST['hearAbout'])&&$_POST['hearAbout'] == 'other'){echo 'selected="selected"';}?>">Other</option>
+                                   <option value="indeed<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'indeed'){echo 'selected="selected"';}?>">Indeed</option>
+                                   <option value="internet search<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'internet search'){echo 'selected="selected"';}?>">Internet search</option>
+                                   <option value="email<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'email'){echo 'selected="selected"';}?>">Email from Ajax</option>
+                                   <option value="linkedin<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'linkedin'){echo 'selected="selected"';}?>">LinkedIn</option>
+                                   <option value="other<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'other'){echo 'selected="selected"';}?>">Other</option>
                                  </select>
-
                                   <span class="errorMessage" id="error_hear_about"></span>
+                                </p>
+
+                                <p>
+                                 What is your current employment status?
+                                 <select name="employment_status">
+                                   <option value="">Select...</option>
+                                   <option value="employed<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'employed'){echo 'selected="selected"';}?>">Employed</option>
+                                   <option value="part time<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'part_time'){echo 'selected="selected"';}?>">Part time employed</option>
+                                   <option value="unemployed<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'unemployed'){echo 'selected="selected"';}?>">Unemployed</option>
+                                   <option value="self employed<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'self_employed'){echo 'selected="selected"';}?>">Self employed</option>
+                                   <option value="student<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'student'){echo 'selected="selected"';}?>">Student</option>
+                                   <option value="other<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'other'){echo 'selected="selected"';}?>">Other</option>
+                                 </select>
+                                  <span class="errorMessage" id="error_employment_status"></span>
+                                </p>
+
+                                <p>
+                                 How many years of sales experience do you have?
+                                 <select name="sales_experience">
+                                   <option value="">Select...</option>
+                                   <option value="0-1<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '0-1'){echo 'selected="selected"';}?>">0-1 years</option>
+                                   <option value="2-3<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '2-3'){echo 'selected="selected"';}?>">2-3 years</option>
+                                   <option value="3-4<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '3-4'){echo 'selected="selected"';}?>">3-4 years</option>
+                                   <option value="4-5<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '5-6'){echo 'selected="selected"';}?>">5-6 years</option>
+                                   <option value="6-plus<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '6-plus'){echo 'selected="selected"';}?>">6 plus years</option>
+                                 </select>
+                                  <span class="errorMessage" id="error_sales_experience"></span>
                                 </p>
 
                               </div>
@@ -315,6 +341,8 @@ zzzzzz
                       $('error_right_work').innerHTML = '';
                       $('error_experience').innerHTML = '';
                       $('error_hear_about').innerHTML = '';
+                      $('error_employment_status').innerHTML = '';
+                      $('error_sales_experience').innerHTML = '';
 
                       var form = document.forms['form'];
 
@@ -366,7 +394,8 @@ zzzzzz
                       }
 
                       var hear_about = form.querySelector('[name="hear_about"]').value;
-                
+                      var employment_status = form.querySelector('[name="employment_status"]').value;
+                      var sales_experience = form.querySelector('[name="sales_experience"]').value;
 
 
                       //create ajax object from my library
@@ -412,6 +441,10 @@ zzzzzz
                               $('error_experience').innerHTML = 'Please answer this question.';
                             } else if (response == 'no_hear_about') {
                               $('error_hear_about').innerHTML = 'Please make a selection.';
+                            } else if (response == 'no_employment_status') {
+                              $('error_employment_status').innerHTML = 'Please make a selection.';
+                            } else if (response == 'no_sales_experience') {
+                              $('error_sales_experience').innerHTML = 'Please make a selection.';
                             } else {
                               $('formResponse').innerHTML = '<p>' + response + '</p>';
                               errorPrint('formResponse', '<p>OOppss. System error.</p>');
@@ -440,6 +473,8 @@ zzzzzz
                         'right_work=' + right_work,
                         'experience=' + experience,
                         'hear_about=' + hear_about,
+                        'employment_status=' + employment_status,
+                        'sales_experience=' + sales_experience,
                       ];
 
                       ajax.open('POST', 'http://localhost/ajax/ajax_transport/agents/api_agents/add_agent_application.php', true);

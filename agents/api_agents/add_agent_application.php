@@ -44,10 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
   } elseif ($_POST['experience'] == 'undefined') {
     echo 'no_experience';
     die();
-    */
+
   } elseif (empty($_POST['hear_about'])) {
     echo 'no_hear_about';
     die();
+  } elseif (empty($_POST['employment_status'])) {
+    echo 'no_employment_status';
+    die();*/
+  } elseif (empty($_POST['sales_experience'])) {
+    echo 'no_sales_experience';
   } else {
 
   }
@@ -79,12 +84,14 @@ $background = filter_input(INPUT_POST, 'background');
 $right_work= filter_input(INPUT_POST, 'right_work');
 $experience = filter_input(INPUT_POST, 'experience');
 $hear_about = filter_input(INPUT_POST, 'hear_about');
+$employment_status = filter_input(INPUT_POST, 'employment_status');
+$sales_esperience = filter_input(INPUT_POST, 'sales_experience');
 
 require_once ('../../includes_2/database_ajax.php');
 
 //add contact to db below query using backticks
-$q = "INSERT INTO `agent_applications`(`first_name`, `last_name`, `email`, `telephone`, `address`, `suite`, `city`, `state`, `zip`, `background`, `right_work`, `experience`, `hear_about`)
-VALUES (:first_name, :last_name, :email, :telephone_stripped, :address, :suite, :city, :state, :zip, :background, :right_work, :experience, :hear_about)";
+$q = "INSERT INTO `agent_applications`(`first_name`, `last_name`, `email`, `telephone`, `address`, `suite`, `city`, `state`, `zip`, `background`, `right_work`, `experience`, `hear_about`, `employment_status`, `sales_esperience`)
+VALUES (:first_name, :last_name, :email, :telephone_stripped, :address, :suite, :city, :state, :zip, :background, :right_work, :experience, :hear_about, :employment_status, :sales_esperience)";
 
 $statement_add = $dba -> prepare($q);
 $statement_add -> bindValue(':first_name', $first_name);
@@ -100,6 +107,8 @@ $statement_add -> bindValue(':background', $background);
 $statement_add -> bindValue(':right_work', $right_work);
 $statement_add -> bindValue(':experience', $experience);
 $statement_add -> bindValue(':hear_about', $hear_about);
+$statement_add -> bindValue(':employment_status', $employment_status);
+$statement_add -> bindValue(':sales_esperience', $sales_esperience);
 
 $statement_add -> execute();
 $statement_add -> closeCursor();
