@@ -217,7 +217,7 @@ zzzzzz
                           };
                           ?>" >
                           <span class="errorMessage" id="error_telephone"></span></p>
-                          
+
                           <p><label for="email">Email:</label>
                             <input type="email" name="email" id="email" placeholder="Your Email" value = "<?php
                             if (isset($email)) {
@@ -268,6 +268,20 @@ zzzzzz
                                   <span class="errorMessage" id="error_experience"></span>
                                 </p>
 
+                                <p>
+                                 How did you hear about this position?
+                                 <select name="hear_about">
+                                   <option value="">Select...</option>
+                                   <option value="indeed<?php if(isset($_POST['hearAbout'])&&$_POST['hearAbout'] == 'indeed'){echo 'selected="selected"';}?>">Indeed</option>
+                                   <option value="internet search<?php if(isset($_POST['hearAbout'])&&$_POST['hearAbout'] == 'internet search'){echo 'selected="selected"';}?>">Internet search</option>
+                                   <option value="email<?php if(isset($_POST['hearAbout'])&&$_POST['hearAbout'] == 'email'){echo 'selected="selected"';}?>">Email from Ajax</option>
+                                   <option value="linkedin<?php if(isset($_POST['hearAbout'])&&$_POST['hearAbout'] == 'linkedin'){echo 'selected="selected"';}?>">LinkedIn</option>
+                                   <option value="other<?php if(isset($_POST['hearAbout'])&&$_POST['hearAbout'] == 'other'){echo 'selected="selected"';}?>">Other</option>
+                                 </select>
+
+                                  <span class="errorMessage" id="error_hear_about"></span>
+                                </p>
+
                               </div>
 
                             </fieldset>
@@ -300,6 +314,7 @@ zzzzzz
                       $('error_background').innerHTML = '';
                       $('error_right_work').innerHTML = '';
                       $('error_experience').innerHTML = '';
+                      $('error_hear_about').innerHTML = '';
 
                       var form = document.forms['form'];
 
@@ -350,6 +365,10 @@ zzzzzz
                         }
                       }
 
+                      var hear_about = form.querySelector('[name="hear_about"]').value;
+                
+
+
                       //create ajax object from my library
                       var ajax = getXmlHttpRequest();
 
@@ -391,6 +410,8 @@ zzzzzz
                               $('error_right_work').innerHTML = 'Please answer this question.';
                             } else if (response == 'no_experience') {
                               $('error_experience').innerHTML = 'Please answer this question.';
+                            } else if (response == 'no_hear_about') {
+                              $('error_hear_about').innerHTML = 'Please make a selection.';
                             } else {
                               $('formResponse').innerHTML = '<p>' + response + '</p>';
                               errorPrint('formResponse', '<p>OOppss. System error.</p>');
@@ -418,6 +439,7 @@ zzzzzz
                         'background=' + background,
                         'right_work=' + right_work,
                         'experience=' + experience,
+                        'hear_about=' + hear_about,
                       ];
 
                       ajax.open('POST', 'http://localhost/ajax/ajax_transport/agents/api_agents/add_agent_application.php', true);
