@@ -4,8 +4,9 @@ include ('../../site_utilities_v2/config.inc.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST'):
   //print_r($_POST) ;
   //die();
+
   if (empty($_POST['key']) || $_POST['key'] !== AJAX_API_KEY) {
-    echo 'OOppss. System error.';
+    echo 'error.';
     die();
   } elseif (empty($_POST['first_name'])) {
     echo 'no_first_name';
@@ -65,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
     echo 'no_essay';
     die();
   } else {
-    echo '';
+
   }
 
 else:
@@ -83,7 +84,6 @@ $state = filter_input(INPUT_POST, 'state');
 $zip = filter_input(INPUT_POST, 'zip');
 $email = filter_input(INPUT_POST, 'email');
 $emailVerify = filter_input(INPUT_POST, 'emailVerify');
-//	$p = str_replace(array('', '-', '(', ')'), '', $p);
 $telephone = filter_input(INPUT_POST, 'telephone');
 $telephone_stripped = str_replace(array(' ', '-', '(', ')'), '', $telephone);
 // check if numbers entered for telephone number
@@ -94,10 +94,8 @@ if(is_numeric($telephone_stripped) == FALSE || strlen($telephone_stripped) !== 1
 $background = filter_input(INPUT_POST, 'background');
 $right_work= filter_input(INPUT_POST, 'right_work');
 $experience = filter_input(INPUT_POST, 'experience');
-
 $business_book = filter_input(INPUT_POST, 'business_book');
 $non_compete = filter_input(INPUT_POST, 'non_compete');
-
 $hear_about = filter_input(INPUT_POST, 'hear_about');
 $employment_status = filter_input(INPUT_POST, 'employment_status');
 $sales_esperience = filter_input(INPUT_POST, 'sales_experience');
@@ -136,5 +134,8 @@ $statement_add -> closeCursor();
 
 if (!empty($statement_add)):
   echo '200';
-  //send me a notification email
+  // email me when appliction submitted
+  if(LIVE){
+    mail(CONTACT_EMAIL, 'Agent Application', 'Agent Application received', 'From:'.CONTACT_EMAIL);
+  }
 endif;

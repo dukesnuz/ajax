@@ -30,10 +30,29 @@
 
 <script src = "http://www.dukesnuz.com/js_libs/dukes.javascript.js"></script>
 
-<!-- add input type tel to style sheet-->
+<!--create external style sheet-->
 <style>
-fieldset {
+body {
+  cursor: pointer;
+}
+.errorMessage {
+    display: block;
+}
+div#form_center {
+  margin: 0;
+  padding-left: 5%;
   width: 500px;
+}
+div#form_center p {
+  color: #454341;
+}
+fieldset {
+  margin-top: 25px;
+}
+legend {
+  font-size: 1.25em;
+  letter-spacing: 5px;
+  font-weight: bold;
 }
 .errorMessage {
   font-size: .85em;
@@ -43,6 +62,7 @@ fieldset {
 label:before, select:before {
   content: '* ';
   color: #ff0000;
+  margin-left: -15px;
 }
 div#form_center input[type="tel"]{
   border-radius: 3px;
@@ -53,20 +73,33 @@ div#form_center input[type="tel"]{
   padding-left: 0px;
   padding-left: 2px;
 }
-.radio-toolbar label {
+.radio_toolbar label {
   display: inline-block;
-  background-color: #ddd;
   padding: 4px 11px;
   font-family: Arial;
   font-size: 16px;
-  cursor: pointer;
 }
-
-.radio-toolbar input[type="radio"]:checked+label {
+.radio_toolbar input[type="radio"] {
+  margin-left: 100px;
+  margin-top: 10px;
+}
+.radio_toolbar input[type="radio"]:checked+label {
   background-color: #bbb;
 }
-div#form_center p {
-  color: #454341;
+.application header h2{
+  margin-left: 5%;
+}
+.formResponse {
+  color: #FF7400 !important;
+  letter-spacing: 3px;
+  font-size: 1.5em;
+  margin-left: 5%;
+  background-color: #454341;
+  padding: 10px;
+  margin-right: 5%;
+  text-align: center;
+  margin-top: 75px;
+  margin-bottom: 250px;
 }
 </style>
 <body>
@@ -76,24 +109,24 @@ div#form_center p {
     <?php
     include('../../headers/header_utilities.inc.php');
     ?>
-    <!--
+
     <div class ="slogan"><h2>freight broker agents</h2></div>
 
     <div id ="displayArea">
 
-    <section class = "wd_box">
-    <header>
-    <h2>Why</h2>
-  </header>
+      <section class = "wd_box">
+      <header>
+      <h2>Why</h2>
+    </header>
 
-  <h4>Reason #1 - xxxx</h4>
-  <p>yyyyy</p>
+    <h4>Reason #1 - xxxx</h4>
+    <p>yyyyy</p>
 
-</section>
+  </section>
 
-<section class = "wd_box">
-<header>
-<h2>What you get</h2>
+  <section class = "wd_box">
+  <header>
+  <h2>What you get</h2>
 </header>
 <p>zzzzzz</p>
 </section>
@@ -126,27 +159,19 @@ zzzzzz
 <p>vvvvv</p>
 </section>
 
-<section class = "wd_box">
-<header>
-<h2>Talk to us today</h2>
-</header>
-<p>ppppp</p>
-</section>
-
 </div>
--->
+
 
 <!--lower section-->
 
-<section>
+<section class="application">
   <header>
-    <h3>form</h3>
+    <h2>Ajax Transport Freight Broker Agent Application</h2>
   </header>
   <div>
 
     <div id ="form_center">
       <div id ='formResponse'></div>
-
       <a href="http://localhost/ajax/ajax_transport/agents/agent_landing_pages/agent_application.php">refresh for dev</a>
       <form action="agent_application.php" method="post" name="form" id="form">
 
@@ -241,7 +266,7 @@ zzzzzz
                             <fieldset>
                               <legend>About You</legend>
 
-                              <div class="radio-toolbar">
+                              <div class="radio_toolbar">
                                 <p>
                                   <label>Can you pass a mandatory background check?</label><br />
                                   <input type="radio" name="backgrounds" value="true"
@@ -348,26 +373,25 @@ zzzzzz
                               <legend>In a Few Words</legend>
                               <p>
                                 <label for="essay">What attracted you to Ajax Transport? (max 250 words)</label>
-                                <textarea name="essay" id="essay" rows="10" cols="60" minlength="25" maxlength="250" wrap="hard" value = "<?php
+                                <textarea name="essay" id="essay" rows="10" cols="60" minlength="15" maxlength="250" wrap="hard" value = "<?php
                                 if (isset($essay)) {
                                   echo htmlspecialchars($essay);
                                 };
                                 ?>"></textarea>
-                                <span class="errorEssay" id="error_essay"></span><div id="essay_count"></div>
+                                <span class="errorMessage" id="error_essay"></span><div id="essay_count"></div>
                               </p>
                             </fieldset>
 
                             <p><input type ="submit" value ="Submit"></p>
 
                           </form>
-                          <a href="http://localhost/ajax/ajax_transport/agents/agent_landing_pages/agent_application.php">refresh for dev</a>
                           <p class ='ip'>Your ip address is : <?php echo htmlspecialchars($ip); ?></p>
                         </div>
                       </div>
                     </section>
 
                     <script>
-
+                    /* create external js sheet*/
                     function submitForm(e) {
                       "use strict";
                       e.preventDefault();
@@ -393,8 +417,6 @@ zzzzzz
                       $('error_sales_experience').innerHTML = '';
                       $('error_years_broker').innerHTML = '';
                       $('error_essay').innerHTML = '';
-
-
 
                       var form = document.forms['form'];
 
@@ -490,9 +512,15 @@ zzzzzz
                             if (response.substring(0, 6) === 200) {
 
                             } else if (response == 200) {
-                              $('formResponse').innerHTML = 'Thank you for submitting your application.';
+                              // on form submission success
+                              $('formResponse').innerHTML = 'Thank you for submitting your freight broker agent application.';
+                              $('formResponse').classList.add("formResponse");
                               $('form').style.display = 'none';
-                              document.getElementsByClassName('ip')[0].style.display = 'none';
+                              //hide ip address
+                              var ip = document.getElementsByClassName('ip');
+                              ip[0].style.visibility='hidden';
+                            //  $('formResponse').style.margin = "0";
+
                             } else if (response == 'no_first_name') {
                               $('error_first_name').innerHTML = 'Please enter your first name.';
                             } else if (response == 'no_last_name') {
@@ -510,7 +538,7 @@ zzzzzz
                             } else if (response == 'no_email') {
                               $('error_email').innerHTML = 'Please enter an email address.';
                             } else if (response == 'no_telephone') {
-                              $('error_telephone').innerHTML = 'Please enter your telephone as<br>123-456-7899';
+                              $('error_telephone').innerHTML = 'Please enter your telephone as 123-456-7899';
                             } else if (response == 'no_background') {
                               $('error_background').innerHTML = 'Please answer this question.';
                             } else if (response == 'no_right_work') {
@@ -533,11 +561,11 @@ zzzzzz
                               $('error_essay').innerHTML = 'Please complete this information.';
                             } else if (response == 'essay_short') {
                               $('error_essay').innerHTML = 'Please complete this information.';
+                            } else if (response == 'error') {
+                              errorPrint('formResponse', 'Agent application');
                             } else {
-                              $('formResponse').innerHTML = '<p>' + response + '</p>';
-                              errorPrint('formResponse', '<p>OOppss. System error.</p>');
+                              errorPrint('formResponse', 'Agent application');
                             }
-
 
                           } else {
                             //  errorPrint('formResponse', '<br>Your email was not recieved.');
@@ -570,7 +598,7 @@ zzzzzz
 
                       ];
 
-                      ajax.open('POST', 'http://localhost/ajax/ajax_transport/agents/api_agents/add_agent_application.php', true);
+                      ajax.open('POST', '../api_agents/add_agent_application.php', true);
                       ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                       ajax.send(data.join('&'));
                     };// END ajax request
@@ -586,8 +614,16 @@ zzzzzz
                     }
 
                     window.onload = function () {
-                      //$('show').style.display = 'none';
-                      //  $('proceed').style.display = 'none';
+                      //$('formResponse').innerHTML = 'Thank you for submitting your freight broker agent application.';
+                      //$('form').style.display = 'none';
+                      //var ip = document.getElementsByClassName('ip');
+                      //ip[0].style.visibility='hidden';
+                      //$('formResponse').classList.add("formResponse");
+                    //  $('formResponse').innerHTML = '<p>' + response + '</p>';
+
+                      //make invisible form response
+                      //$('formResponse').style.backgroundColor = "#fff";
+                    //  $('formResponse').style.margin = "0";
                       $('form').addEventListener('submit', function (e) {
                         e.preventDefault();
                         submitForm(e);
@@ -603,7 +639,5 @@ zzzzzz
                   //  include('../../site_utilities/page_history.inc.php');
                   //  include('../../site_utilities/stats.html');
                   ?>
-
-
-                </body>
-                </html>
+</body>
+</html>
