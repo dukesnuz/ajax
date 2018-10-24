@@ -32,12 +32,15 @@
 
 <!-- add input type tel to style sheet-->
 <style>
+fieldset {
+  width: 500px;
+}
 .errorMessage {
   font-size: .85em;
   font-weight: bold;
   color: #ff0000;
 }
-label:before {
+label:before, select:before {
   content: '* ';
   color: #ff0000;
 }
@@ -160,7 +163,6 @@ zzzzzz
             ?>" >
             <span class="errorMessage" id="error_first_name"></span></p>
 
-
             <p><label for="last_name">Last Name:</label>
               <input type="text" name="last_name" id="last_name" placeholder="Your last name" value = "<?php
               if (isset($last_name)) {
@@ -168,7 +170,6 @@ zzzzzz
               };
               ?>" >
               <span class="errorMessage" id="error_last_name"></span></p>
-
 
               <p><label for="address">Address:</label>
                 <input type="text" name="address" id="address" placeholder="Your address" value = "<?php
@@ -236,8 +237,8 @@ zzzzzz
 
                             </fieldset>
 
-                            <fieldset style = "width: 500px;">
 
+                            <fieldset>
                               <legend>About You</legend>
 
                               <div class="radio-toolbar">
@@ -269,48 +270,93 @@ zzzzzz
                                 </p>
 
                                 <p>
-                                 How did you hear about this position?
-                                 <select name="hear_about">
-                                   <option value="">Select...</option>
-                                   <option value="indeed<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'indeed'){echo 'selected="selected"';}?>">Indeed</option>
-                                   <option value="internet search<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'internet search'){echo 'selected="selected"';}?>">Internet search</option>
-                                   <option value="email<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'email'){echo 'selected="selected"';}?>">Email from Ajax</option>
-                                   <option value="linkedin<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'linkedin'){echo 'selected="selected"';}?>">LinkedIn</option>
-                                   <option value="other<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'other'){echo 'selected="selected"';}?>">Other</option>
-                                 </select>
+                                  <label>Do you currently have a book of business that you would be able to maintain in a transition?</label><br />
+                                  <input type="radio" name="business_books" value="true"
+                                  <?php if (isset($_POST['business_books']) && $_POST['business_books'] == "true") echo 'checked="checked"';?>>Yes
+                                  <input type="radio" name="business_books" value="false"
+                                  <?php if (isset($_POST['business_books']) && $_POST['business_books'] == "false") echo 'checked="checked"';?>>No
+                                  <span class="errorMessage" id="error_business_book"></span>
+                                </p>
+
+                                <p>
+                                  <label>Do you have a non-compete in place with a current or former employer?</label><br />
+                                  <input type="radio" name="non_competes" value="true"
+                                  <?php if (isset($_POST['non_competes']) && $_POST['non_competes'] == "true") echo 'checked="checked"';?>>Yes
+                                  <input type="radio" name="non_competes" value="false"
+                                  <?php if (isset($_POST['non_competes']) && $_POST['non_competes'] == "false") echo 'checked="checked"';?>>No
+                                  <span class="errorMessage" id="error_non_compete"></span>
+                                </p>
+
+                                <p>
+                                  How did you hear about this position?
+                                  <select name="hear_about">
+                                    <option value="">Select...</option>
+                                    <option value="indeed<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'indeed'){echo 'selected="selected"';}?>">Indeed</option>
+                                    <option value="internet search<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'internet search'){echo 'selected="selected"';}?>">Internet search</option>
+                                    <option value="email<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'email'){echo 'selected="selected"';}?>">Email from Ajax</option>
+                                    <option value="linkedin<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'linkedin'){echo 'selected="selected"';}?>">LinkedIn</option>
+                                    <option value="other<?php if(isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'other'){echo 'selected="selected"';}?>">Other</option>
+                                  </select>
                                   <span class="errorMessage" id="error_hear_about"></span>
                                 </p>
 
                                 <p>
-                                 What is your current employment status?
-                                 <select name="employment_status">
-                                   <option value="">Select...</option>
-                                   <option value="employed<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'employed'){echo 'selected="selected"';}?>">Employed</option>
-                                   <option value="part time<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'part_time'){echo 'selected="selected"';}?>">Part time employed</option>
-                                   <option value="unemployed<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'unemployed'){echo 'selected="selected"';}?>">Unemployed</option>
-                                   <option value="self employed<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'self_employed'){echo 'selected="selected"';}?>">Self employed</option>
-                                   <option value="student<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'student'){echo 'selected="selected"';}?>">Student</option>
-                                   <option value="other<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'other'){echo 'selected="selected"';}?>">Other</option>
-                                 </select>
+                                  What is your current employment status?
+                                  <select name="employment_status">
+                                    <option value="">Select...</option>
+                                    <option value="employed<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'employed'){echo 'selected="selected"';}?>">Employed</option>
+                                    <option value="part time<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'part_time'){echo 'selected="selected"';}?>">Part time employed</option>
+                                    <option value="unemployed<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'unemployed'){echo 'selected="selected"';}?>">Unemployed</option>
+                                    <option value="self employed<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'self_employed'){echo 'selected="selected"';}?>">Self employed</option>
+                                    <option value="student<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'student'){echo 'selected="selected"';}?>">Student</option>
+                                    <option value="other<?php if(isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'other'){echo 'selected="selected"';}?>">Other</option>
+                                  </select>
                                   <span class="errorMessage" id="error_employment_status"></span>
                                 </p>
 
                                 <p>
-                                 How many years of sales experience do you have?
-                                 <select name="sales_experience">
-                                   <option value="">Select...</option>
-                                   <option value="0-1<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '0-1'){echo 'selected="selected"';}?>">0-1 years</option>
-                                   <option value="2-3<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '2-3'){echo 'selected="selected"';}?>">2-3 years</option>
-                                   <option value="3-4<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '3-4'){echo 'selected="selected"';}?>">3-4 years</option>
-                                   <option value="4-5<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '5-6'){echo 'selected="selected"';}?>">5-6 years</option>
-                                   <option value="6-plus<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '6-plus'){echo 'selected="selected"';}?>">6 plus years</option>
-                                 </select>
+                                  How many years of sales experience do you have?
+                                  <select name="sales_experience">
+                                    <option value="">Select...</option>
+                                    <option value="0-1<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '0-1'){echo 'selected="selected"';}?>">0-1 years</option>
+                                    <option value="2-3<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '2-3'){echo 'selected="selected"';}?>">2-3 years</option>
+                                    <option value="3-4<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '3-4'){echo 'selected="selected"';}?>">3-4 years</option>
+                                    <option value="4-5<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '5-6'){echo 'selected="selected"';}?>">5-6 years</option>
+                                    <option value="6-plus<?php if(isset($_POST['salesExperience']) && $_POST['salesExperience'] == '6-plus'){echo 'selected="selected"';}?>">6 plus years</option>
+                                  </select>
                                   <span class="errorMessage" id="error_sales_experience"></span>
+                                </p>
+
+                                <p>
+                                  How many years have you been a freight broker?
+                                  <select name="years_broker">
+                                    <option value="">Select...</option>
+                                    <option value="0-1<?php if(isset($_POST['yearsBroker']) && $_POST['yearsBroker'] == '0-1'){echo 'selected="selected"';}?>">0-1 years</option>
+                                    <option value="2-3<?php if(isset($_POST['yearsBroker']) && $_POST['yearsBroker'] == '2-3'){echo 'selected="selected"';}?>">2-3 years</option>
+                                    <option value="3-4<?php if(isset($_POST['yearsBroker']) && $_POST['yearsBroker'] == '3-4'){echo 'selected="selected"';}?>">3-4 years</option>
+                                    <option value="4-5<?php if(isset($_POST['yearsBroker']) && $_POST['yearsBroker'] == '5-6'){echo 'selected="selected"';}?>">5-6 years</option>
+                                    <option value="6-plus<?php if(isset($_POST['yearsBroker']) && $_POST['yearsBroker'] == '6-plus'){echo 'selected="selected"';}?>">6 plus years</option>
+                                  </select>
+                                  <span class="errorMessage" id="error_years_broker"></span>
                                 </p>
 
                               </div>
 
                             </fieldset>
+
+                            <fieldset>
+                              <legend>In a Few Words</legend>
+                              <p>
+                                <label for="essay">What attracted you to Ajax Transport? (max 250 words)</label>
+                                <textarea name="essay" id="essay" rows="10" cols="60" minlength="25" maxlength="250" wrap="hard" value = "<?php
+                                if (isset($essay)) {
+                                  echo htmlspecialchars($essay);
+                                };
+                                ?>"></textarea>
+                                <span class="errorEssay" id="error_essay"></span><div id="essay_count"></div>
+                              </p>
+                            </fieldset>
+
                             <p><input type ="submit" value ="Submit"></p>
 
                           </form>
@@ -340,9 +386,15 @@ zzzzzz
                       $('error_background').innerHTML = '';
                       $('error_right_work').innerHTML = '';
                       $('error_experience').innerHTML = '';
+                      $('error_business_book').innerHTML = '';
+                      $('error_non_compete').innerHTML = '';
                       $('error_hear_about').innerHTML = '';
                       $('error_employment_status').innerHTML = '';
                       $('error_sales_experience').innerHTML = '';
+                      $('error_years_broker').innerHTML = '';
+                      $('error_essay').innerHTML = '';
+
+
 
                       var form = document.forms['form'];
 
@@ -393,9 +445,35 @@ zzzzzz
                         }
                       }
 
+                      // get value of radio business_book button
+                      var business_books = document.getElementsByName("business_books");
+                      var length = business_books.length;
+                      for(var i = 0;  i < length; i++)
+                      {
+                        if(business_books[i].checked)
+                        {
+                          var business_book = business_books[i].value;
+                          break;
+                        }
+                      }
+
+                      // get value of radio non_compete button
+                      var non_competes = document.getElementsByName("non_competes");
+                      var length = non_competes.length;
+                      for(var i = 0;  i < length; i++)
+                      {
+                        if(non_competes[i].checked)
+                        {
+                          var non_compete = non_competes[i].value;
+                          break;
+                        }
+                      }
+
                       var hear_about = form.querySelector('[name="hear_about"]').value;
                       var employment_status = form.querySelector('[name="employment_status"]').value;
                       var sales_experience = form.querySelector('[name="sales_experience"]').value;
+                      var years_broker = form.querySelector('[name="years_broker"]').value;
+                      var essay = form.querySelector('[name="essay"]').value;
 
 
                       //create ajax object from my library
@@ -439,12 +517,22 @@ zzzzzz
                               $('error_right_work').innerHTML = 'Please answer this question.';
                             } else if (response == 'no_experience') {
                               $('error_experience').innerHTML = 'Please answer this question.';
+                            } else if (response == 'no_business_book') {
+                              $('error_business_book').innerHTML = 'Please answer this question.';
+                            } else if (response == 'no_non_compete') {
+                              $('error_non_compete').innerHTML = 'Please answer this question.';
                             } else if (response == 'no_hear_about') {
                               $('error_hear_about').innerHTML = 'Please make a selection.';
                             } else if (response == 'no_employment_status') {
                               $('error_employment_status').innerHTML = 'Please make a selection.';
                             } else if (response == 'no_sales_experience') {
                               $('error_sales_experience').innerHTML = 'Please make a selection.';
+                            } else if (response == 'no_years_broker') {
+                              $('error_years_broker').innerHTML = 'Please make a selection.';
+                            } else if (response == 'no_essay') {
+                              $('error_essay').innerHTML = 'Please complete this information.';
+                            } else if (response == 'essay_short') {
+                              $('error_essay').innerHTML = 'Please complete this information.';
                             } else {
                               $('formResponse').innerHTML = '<p>' + response + '</p>';
                               errorPrint('formResponse', '<p>OOppss. System error.</p>');
@@ -472,18 +560,31 @@ zzzzzz
                         'background=' + background,
                         'right_work=' + right_work,
                         'experience=' + experience,
+                        'business_book=' + business_book,
+                        'non_compete=' + non_compete,
                         'hear_about=' + hear_about,
                         'employment_status=' + employment_status,
                         'sales_experience=' + sales_experience,
+                        'years_broker=' + years_broker,
+                        'essay=' + essay,
+
                       ];
 
                       ajax.open('POST', 'http://localhost/ajax/ajax_transport/agents/api_agents/add_agent_application.php', true);
                       ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                       ajax.send(data.join('&'));
+                    };// END ajax request
 
-
+                    // count words in essay
+                    essay.onkeyup = function countWords(){
+                      $('essay_count').innerHTML = '';
+                      var essay = $('essay');
+                      var words = essay.value.split(" ");
+                      var count = words.length;
+                      $('error_essay').innerHTML = '';
+                      $('essay_count').innerHTML = '<p>Words:' + count + '</p>';
                     }
-                    ;// END ajax request
+
                     window.onload = function () {
                       //$('show').style.display = 'none';
                       //  $('proceed').style.display = 'none';
