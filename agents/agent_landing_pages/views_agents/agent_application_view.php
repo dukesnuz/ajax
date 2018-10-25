@@ -27,10 +27,10 @@
 <link href="../../css/home_page_mobile.css" rel="stylesheet" type="text/css" />
 <link href="../../css/home_page_desktop.css" rel="stylesheet" type="text/css" />
 <link href="../../css/navigation.css" rel="stylesheet" type="text/css" />
-<link href="../agents_css/agent_application.css" rel="stylesheet" type="text/css" />
+<link href="../agents_css/agent.css" rel="stylesheet" type="text/css" />
 
 <script src = "http://www.dukesnuz.com/js_libs/dukes.javascript.js"></script>
-<script src = "../agents_js/agent_application.js"></script>
+<script src = "../agents_js/agent.js?<?php echo rand(1, 1000000); ?>"></script>
 </head>
 <body>
 
@@ -103,12 +103,13 @@ zzzzzz
     <div id ="form_center">
       <div id ='formResponse'></div>
       <a href="http://localhost/ajax/ajax_transport/agents/agent_landing_pages/agent_application.php">refresh for dev</a>
-      <form action="agent_application.php" method="post" name="form" id="form">
 
+      <form action="./agent_application.php" method="post" name="form" id="form">
+        <p><input type ="submit" value ="Submit"></p>
         <fieldset>
           <legend>Your Contact Information</legend>
 
-          <input type="text" name="key" value="<?php echo AJAX_API_KEY; ?>">
+          <input type="hidden" name="key" value="<?php echo AJAX_API_KEY; ?>">
 
           <p><label for="first_name">First Name:</label>
             <input type="text" name="first_name" id="first_name" placeholder="Your first name" value = "<?php
@@ -312,7 +313,7 @@ zzzzzz
                               </p>
                             </fieldset>
 
-                            <p><input type ="submit" value ="Submit"></p>
+
 
                           </form>
                           <p class ='ip'>Your ip address is : <?php echo htmlspecialchars($ip); ?></p>
@@ -325,8 +326,8 @@ zzzzzz
                     ?>
                   </main>
                   <?php
-                  //  include('../../site_utilities/page_history.inc.php');
-                  //  include('../../site_utilities/stats.html');
+                  include('../../site_utilities/page_history.inc.php');
+                  include('../../site_utilities/stats.html');
                   ?>
                 </body>
                 </html>
