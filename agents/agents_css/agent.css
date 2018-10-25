@@ -1,12 +1,12 @@
 /*
-*this file is used in agents/agent_application
+*this file is used in agents
 * coded October 2018
 */
 body {
-  cursor: pointer;
+  /*  cursor: pointer;*/
 }
 .errorMessage {
-    display: block;
+  display: block;
 }
 div#form_center p {
   color: #454341;
