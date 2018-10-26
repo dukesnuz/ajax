@@ -5,31 +5,38 @@
 .errorMessage {
   display: block;
 }
+
 div#form_center p {
   color: #454341;
 }
+
 div#form_center {
   width: 500px;
 }
+
 fieldset {
   margin-top: 25px;
 }
+
 legend {
   font-size: 1.25em;
   letter-spacing: 5px;
   font-weight: bold;
 }
+
 .errorMessage {
   font-size: .85em;
   font-weight: bold;
   color: #ff0000;
 }
+
 label:before, select:before {
   content: '* ';
   color: #ff0000;
   margin-left: -15px;
 }
-div#form_center input[type="tel"]{
+
+div#form_center input[type="tel"] {
   border-radius: 3px;
   width: 100%;
   border: 1px solid #454341;
@@ -38,22 +45,27 @@ div#form_center input[type="tel"]{
   padding-left: 0px;
   padding-left: 2px;
 }
+
 .radio_toolbar label {
   display: inline-block;
   padding: 4px 11px;
   font-family: Arial;
   font-size: 16px;
 }
+
 .radio_toolbar input[type="radio"] {
   margin-left: 100px;
   margin-top: 10px;
 }
+
 .radio_toolbar input[type="radio"]:checked+label {
   background-color: #bbb;
 }
-.application header h2{
+
+.application header h2 {
   margin-left: 5%;
 }
+
 .formResponse {
   color: #FF7400 !important;
   letter-spacing: 3px;

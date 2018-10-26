@@ -1,7 +1,7 @@
 /*
-*this file is used in agents
-* coded October 2018
-*/
+ *this file is used in agents
+ * coded October 2018
+ */
 function submitForm(e) {
   "use strict";
   e.preventDefault();
@@ -44,10 +44,8 @@ function submitForm(e) {
   // get value of radio backgrounds button
   var backgrounds = document.getElementsByName("backgrounds");
   var length = backgrounds.length;
-  for(var i = 0;  i < length; i++)
-  {
-    if(backgrounds[i].checked)
-    {
+  for (var i = 0; i < length; i++) {
+    if (backgrounds[i].checked) {
       var background = backgrounds[i].value;
       break;
     }
@@ -56,10 +54,8 @@ function submitForm(e) {
   // get value of radio right_works button
   var right_works = document.getElementsByName("right_works");
   var length = right_works.length;
-  for(var i = 0;  i < length; i++)
-  {
-    if(right_works[i].checked)
-    {
+  for (var i = 0; i < length; i++) {
+    if (right_works[i].checked) {
       var right_work = right_works[i].value;
       break;
     }
@@ -68,10 +64,8 @@ function submitForm(e) {
   // get value of radio experiences button
   var experiences = document.getElementsByName("experiences");
   var length = experiences.length;
-  for(var i = 0;  i < length; i++)
-  {
-    if(experiences[i].checked)
-    {
+  for (var i = 0; i < length; i++) {
+    if (experiences[i].checked) {
       var experience = experiences[i].value;
       break;
     }
@@ -80,10 +74,8 @@ function submitForm(e) {
   // get value of radio business_book button
   var business_books = document.getElementsByName("business_books");
   var length = business_books.length;
-  for(var i = 0;  i < length; i++)
-  {
-    if(business_books[i].checked)
-    {
+  for (var i = 0; i < length; i++) {
+    if (business_books[i].checked) {
       var business_book = business_books[i].value;
       break;
     }
@@ -92,10 +84,8 @@ function submitForm(e) {
   // get value of radio non_compete button
   var non_competes = document.getElementsByName("non_competes");
   var length = non_competes.length;
-  for(var i = 0;  i < length; i++)
-  {
-    if(non_competes[i].checked)
-    {
+  for (var i = 0; i < length; i++) {
+    if (non_competes[i].checked) {
       var non_compete = non_competes[i].value;
       break;
     }
@@ -111,7 +101,7 @@ function submitForm(e) {
   //create ajax object from my library
   var ajax = getXmlHttpRequest();
 
-  ajax.addEventListener("readystatechange", function () {
+  ajax.addEventListener("readystatechange", function() {
 
     if (ajax.readyState === 4) {
       console.log(this.response);
@@ -129,7 +119,7 @@ function submitForm(e) {
           $('form').style.display = 'none';
           //hide ip address
           var ip = document.getElementsByClassName('ip');
-          ip[0].style.visibility='hidden';
+          ip[0].style.visibility = 'hidden';
 
         } else if (response == 'no_first_name') {
           $('error_first_name').innerHTML = 'Please enter your first name.';
@@ -209,10 +199,10 @@ function submitForm(e) {
   ajax.open('POST', '../api_agents/add_agent_application.php', true);
   ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   ajax.send(data.join('&'));
-};// END ajax request
+}; // END ajax request
 
 // count words in essay
-function countWords(){
+function countWords() {
   $('essay_count').innerHTML = '';
   var words = essay.value.split(" ");
   var count = words.length;
@@ -220,7 +210,7 @@ function countWords(){
   $('essay_count').innerHTML = '<p>Words:' + count + '</p>';
 }
 
-window.onload = function () {
+window.onload = function() {
   //$('formResponse').innerHTML = 'Thank you for submitting your freight broker agent application.';
   //$('form').style.display = 'none';
   //var ip = document.getElementsByClassName('ip');
@@ -233,7 +223,7 @@ window.onload = function () {
   //$('formResponse').style.margin = "0";
   $('essay').addEventListener('keyup', countWords, true);
 
-  $('form').addEventListener('submit', function (e) {
+  $('form').addEventListener('submit', function(e) {
     e.preventDefault();
     submitForm(e);
   }, true);
