@@ -104,7 +104,7 @@ function submitForm(e) {
   ajax.addEventListener("readystatechange", function() {
 
     if (ajax.readyState === 4) {
-      console.log(this.response);
+
       if ((this.response !== "error") && (ajax.status >= 200 && ajax.status < 300) || (ajax.status == 304)) {
 
         var response = this.response;
@@ -195,8 +195,18 @@ function submitForm(e) {
     'essay=' + essay,
 
   ];
+  // using htaccess, get url to see if in dev or live. status 400 if link url not valid
+  var url = window.location.href
+  var arr = url.split("/");
+  var result = arr[0] + "//" + arr[2];
+  if (result !== 'http://localhost') {
+    //live
+    ajax.open('POST', '../agents/api_agents/add_agent_application.php', true);
+  } else {
+    //dev
+    ajax.open('POST', '../api_agents/add_agent_application.php', true);
+  }
 
-  ajax.open('POST', '../api_agents/add_agent_application.php', true);
   ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   ajax.send(data.join('&'));
 }; // END ajax request
@@ -211,16 +221,6 @@ function countWords() {
 }
 
 window.onload = function() {
-  //$('formResponse').innerHTML = 'Thank you for submitting your freight broker agent application.';
-  //$('form').style.display = 'none';
-  //var ip = document.getElementsByClassName('ip');
-  //ip[0].style.visibility='hidden';
-  //$('formResponse').classList.add("formResponse");
-  //('formResponse').innerHTML = '<p>' + response + '</p>';
-
-  //make invisible form response
-  //$('formResponse').style.backgroundColor = "#fff";
-  //$('formResponse').style.margin = "0";
   $('essay').addEventListener('keyup', countWords, true);
 
   $('form').addEventListener('submit', function(e) {
