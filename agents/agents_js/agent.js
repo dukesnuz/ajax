@@ -221,6 +221,9 @@ function countWords() {
 }
 
 window.onload = function() {
+  //create drop down for states
+  makeSelectList(usStates, 'selectState');
+
   $('essay').addEventListener('keyup', countWords, true);
 
   $('form').addEventListener('submit', function(e) {

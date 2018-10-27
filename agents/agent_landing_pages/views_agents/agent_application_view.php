@@ -19,14 +19,16 @@
   <link href="../../css/home_page_mobile.css" rel="stylesheet" type="text/css" />
   <link href="../../css/home_page_desktop.css" rel="stylesheet" type="text/css" />
   <link href="../../css/navigation.css" rel="stylesheet" type="text/css" />
-  <?php if(LIVE): ?>
+  <?php if (LIVE): ?>
     <link href="../agents/agents_css/agent.css" rel="stylesheet" type="text/css" />
   <?php else: ?>
     <link href="../agents_css/agent.css" rel="stylesheet" type="text/css" />
   <?php endif; ?>
 
-  <script src = "http://www.dukesnuz.com/js_libs/dukes.javascript.js"></script>
-  <?php if(LIVE): ?>
+  <script src = "http://www.dukesnuz.com/js_libs/dukes_states_object.js"></script>
+  <script src = "http://www.dukesnuz.com/js_libs/dukes.javascript.js?<?php echo rand(1, 1000000); ?>"></script>
+
+  <?php if (LIVE): ?>
     <script src = "../agents/agents_js/agent.js?<?php echo rand(1, 1000000); ?>"></script>
   <?php else: ?>
     <script src = "../agents_js/agent.js?<?php echo rand(1, 1000000); ?>"></script>
@@ -104,7 +106,6 @@ zzzzzz
 
     <div id ="form_center">
       <div id ='formResponse'></div>
-      <a href="http://localhost/ajax/ajax_transport/agents/agent_landing_pages/agent_application.php">refresh</a>
 
       <form action="./agent_application.php" method="post" name="form" id="form">
 
@@ -116,7 +117,7 @@ zzzzzz
           <p><label for="first_name">First Name:</label>
             <input type="text" name="first_name" id="first_name" placeholder="Your first name" value = "<?php
             if (isset($first_name)) {
-              echo htmlspecialchars($first_name);
+                echo htmlspecialchars($first_name);
             };
             ?>" >
             <span class="errorMessage" id="error_first_name"></span></p>
@@ -124,7 +125,7 @@ zzzzzz
             <p><label for="last_name">Last Name:</label>
               <input type="text" name="last_name" id="last_name" placeholder="Your last name" value = "<?php
               if (isset($last_name)) {
-                echo htmlspecialchars($last_name);
+                  echo htmlspecialchars($last_name);
               };
               ?>" >
               <span class="errorMessage" id="error_last_name"></span></p>
@@ -132,7 +133,7 @@ zzzzzz
               <p><label for="address">Address:</label>
                 <input type="text" name="address" id="address" placeholder="Your address" value = "<?php
                 if (isset($address)) {
-                  echo htmlspecialchars($address);
+                    echo htmlspecialchars($address);
                 };
                 ?>" >
                 <span class="errorMessage" id="error_address"></span></p>
@@ -140,7 +141,7 @@ zzzzzz
                 <p><label for="suite">Suite:</label>
                   <input type="text" name="suite" id="suite" placeholder="Your suite" value = "<?php
                   if (isset($suite)) {
-                    echo htmlspecialchars($suite);
+                      echo htmlspecialchars($suite);
                   };
                   ?>" >
                   <span class="errorMessage" id="error_suite"></span></p>
@@ -148,47 +149,21 @@ zzzzzz
                   <p><label for="city">City:</label>
                     <input type="text" name="city" id="city" placeholder="Your city" value = "<?php
                     if (isset($city)) {
-                      echo htmlspecialchars($city);
+                        echo htmlspecialchars($city);
                     };
                     ?>" >
                     <span class="errorMessage" id="error_city"></span></p>
 
                     <p>
                       State
-                      <select name="state">
-                        <option value="">Select your state</option>
-                        <option value="al<?php if (isset($_POST['state']) && $_POST['state'] == 'al') {
-                          echo 'selected="selected"';
-                        }?>">Alabama</option>
-                        <option value="ak<?php if (isset($_POST['state']) && $_POST['state'] == 'ak') {
-                          echo 'selected="selected"';
-                        }?>">Alaska</option>
-                        <option value="az<?php if (isset($_POST['state']) && $_POST['state'] == 'az') {
-                          echo 'selected="selected"';
-                        }?>">Arizona</option>
-                        <option value="ar<?php if (isset($_POST['state']) && $_POST['state'] == 'ar') {
-                          echo 'selected="selected"';
-                        }?>">Arkansas</option>
-                        <option value="ca<?php if (isset($_POST['state']) && $_POST['state'] == 'ca') {
-                          echo 'selected="selected"';
-                        }?>">California</option>
-                        <option value="co<?php if (isset($_POST['state']) && $_POST['state'] == 'co') {
-                          echo 'selected="selected"';
-                        }?>">Colorado</option>
-                        <option value="ct<?php if (isset($_POST['state']) && $_POST['state'] == 'ct') {
-                          echo 'selected="selected"';
-                        }?>">Connecticut</option>
-                        <option value="de<?php if (isset($_POST['state']) && $_POST['state'] == 'de') {
-                          echo 'selected="selected"';
-                        }?>">Delaware</option>
+                      <select name="states" id = 'selectState'>
                       </select>
-                      <span class="errorMessage" id="error_state"></span>
-                    </p>
+                     <span class="errorMessage" id="error_state"></span></p>
 
                     <p><label for="zip">Zip code:</label>
                       <input type="text" name="zip" id="zip" placeholder="Your zip code" value = "<?php
                       if (isset($zip)) {
-                        echo htmlspecialchars($zip);
+                          echo htmlspecialchars($zip);
                       };
                       ?>" >
                       <span class="errorMessage" id="error_zip"></span></p>
@@ -196,7 +171,7 @@ zzzzzz
                       <p><label for="telephone">telephone:</label>
                         <input type="tel" name="telephone" id="telephone" placeholder="Your telephone" value = "<?php
                         if (isset($telephone)) {
-                          echo htmlspecialchars($telephone);
+                            echo htmlspecialchars($telephone);
                         };
                         ?>" >
                         <span class="errorMessage" id="error_telephone"></span></p>
@@ -204,7 +179,7 @@ zzzzzz
                         <p><label for="email">Email:</label>
                           <input type="email" name="email" id="email" placeholder="Your Email" value = "<?php
                           if (isset($email)) {
-                            echo htmlspecialchars($email);
+                              echo htmlspecialchars($email);
                           };
                           ?>" >
                           <span class="errorMessage" id="error_email"></span></p>
@@ -212,7 +187,7 @@ zzzzzz
                           <p><label for="emailVerify">Re-enter Email:</label>
                             <input type ="email" name ="emailVerify" id ="emailVerify" placeholder="Verify Your Email" value = "<?php
                             if (isset($emailVerify)) {
-                              echo htmlspecialchars($emailVerify);
+                                echo htmlspecialchars($emailVerify);
                             };
                             ?>">
                             <span class="errorMessage"></span></p>
@@ -228,12 +203,12 @@ zzzzzz
                                 <label>Can you pass a mandatory background check?</label><br />
                                 <input type="radio" name="backgrounds" value="true"
                                 <?php if (isset($_POST['backgrounds']) && $_POST['backgrounds'] == "true") {
-                                  echo 'checked="checked"';
-                                }?>>Yes
+                                echo 'checked="checked"';
+                            }?>>Yes
                                 <input type="radio" name="backgrounds" value="false"
                                 <?php if (isset($_POST['backgrounds']) && $_POST['backgrounds'] == "false") {
-                                  echo 'checked="checked"';
-                                }?>>No
+                                echo 'checked="checked"';
+                            }?>>No
                                 <span class="errorMessage" id="error_background"></span>
                               </p>
 
@@ -241,12 +216,12 @@ zzzzzz
                                 <label>Can you show proof of your legal rigt to work in the United States?</label><br />
                                 <input type="radio" name="right_works" value="true"
                                 <?php if (isset($_POST['right_works']) && $_POST['right_works'] == "true") {
-                                  echo 'checked="checked"';
-                                }?>>Yes
+                                echo 'checked="checked"';
+                            }?>>Yes
                                 <input type="radio" name="right_works" value="false"
                                 <?php if (isset($_POST['right_works']) && $_POST['right_works'] == "false") {
-                                  echo 'checked="checked"';
-                                }?>>No
+                                echo 'checked="checked"';
+                            }?>>No
                                 <span class="errorMessage" id="error_right_work"></span>
                               </p>
 
@@ -254,12 +229,12 @@ zzzzzz
                                 <label>Do you have previous experiences as a freight broker?</label><br />
                                 <input type="radio" name="experiences" value="true"
                                 <?php if (isset($_POST['experiences']) && $_POST['experiences'] == "true") {
-                                  echo 'checked="checked"';
-                                }?>>Yes
+                                echo 'checked="checked"';
+                            }?>>Yes
                                 <input type="radio" name="experiences" value="false"
                                 <?php if (isset($_POST['experiences']) && $_POST['experiences'] == "false") {
-                                  echo 'checked="checked"';
-                                }?>>No
+                                echo 'checked="checked"';
+                            }?>>No
                                 <span class="errorMessage" id="error_experience"></span>
                               </p>
 
@@ -267,12 +242,12 @@ zzzzzz
                                 <label>Do you currently have a book of business that you would be able to maintain in a transition?</label><br />
                                 <input type="radio" name="business_books" value="true"
                                 <?php if (isset($_POST['business_books']) && $_POST['business_books'] == "true") {
-                                  echo 'checked="checked"';
-                                }?>>Yes
+                                echo 'checked="checked"';
+                            }?>>Yes
                                 <input type="radio" name="business_books" value="false"
                                 <?php if (isset($_POST['business_books']) && $_POST['business_books'] == "false") {
-                                  echo 'checked="checked"';
-                                }?>>No
+                                echo 'checked="checked"';
+                            }?>>No
                                 <span class="errorMessage" id="error_business_book"></span>
                               </p>
 
@@ -280,12 +255,12 @@ zzzzzz
                                 <label>Do you have a non-compete in place with a current or former employer?</label><br />
                                 <input type="radio" name="non_competes" value="true"
                                 <?php if (isset($_POST['non_competes']) && $_POST['non_competes'] == "true") {
-                                  echo 'checked="checked"';
-                                }?>>Yes
+                                echo 'checked="checked"';
+                            }?>>Yes
                                 <input type="radio" name="non_competes" value="false"
                                 <?php if (isset($_POST['non_competes']) && $_POST['non_competes'] == "false") {
-                                  echo 'checked="checked"';
-                                }?>>No
+                                echo 'checked="checked"';
+                            }?>>No
                                 <span class="errorMessage" id="error_non_compete"></span>
                               </p>
 
@@ -294,20 +269,20 @@ zzzzzz
                                 <select name="hear_about">
                                   <option value="">Select...</option>
                                   <option value="indeed<?php if (isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'indeed') {
-                                    echo 'selected="selected"';
-                                  }?>">Indeed</option>
+                                echo 'selected="selected"';
+                            }?>">Indeed</option>
                                   <option value="internet search<?php if (isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'internet search') {
-                                    echo 'selected="selected"';
-                                  }?>">Internet search</option>
+                                echo 'selected="selected"';
+                            }?>">Internet search</option>
                                   <option value="email<?php if (isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'email') {
-                                    echo 'selected="selected"';
-                                  }?>">Email from Ajax</option>
+                                echo 'selected="selected"';
+                            }?>">Email from Ajax</option>
                                   <option value="linkedin<?php if (isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'linkedin') {
-                                    echo 'selected="selected"';
-                                  }?>">LinkedIn</option>
+                                echo 'selected="selected"';
+                            }?>">LinkedIn</option>
                                   <option value="other<?php if (isset($_POST['hearAbout']) && $_POST['hearAbout'] == 'other') {
-                                    echo 'selected="selected"';
-                                  }?>">Other</option>
+                                echo 'selected="selected"';
+                            }?>">Other</option>
                                 </select>
                                 <span class="errorMessage" id="error_hear_about"></span>
                               </p>
@@ -317,23 +292,23 @@ zzzzzz
                                 <select name="employment_status">
                                   <option value="">Select...</option>
                                   <option value="employed<?php if (isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'employed') {
-                                    echo 'selected="selected"';
-                                  }?>">Employed</option>
+                                echo 'selected="selected"';
+                            }?>">Employed</option>
                                   <option value="part time<?php if (isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'part_time') {
-                                    echo 'selected="selected"';
-                                  }?>">Part time employed</option>
+                                echo 'selected="selected"';
+                            }?>">Part time employed</option>
                                   <option value="unemployed<?php if (isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'unemployed') {
-                                    echo 'selected="selected"';
-                                  }?>">Unemployed</option>
+                                echo 'selected="selected"';
+                            }?>">Unemployed</option>
                                   <option value="self employed<?php if (isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'self_employed') {
-                                    echo 'selected="selected"';
-                                  }?>">Self employed</option>
+                                echo 'selected="selected"';
+                            }?>">Self employed</option>
                                   <option value="student<?php if (isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'student') {
-                                    echo 'selected="selected"';
-                                  }?>">Student</option>
+                                echo 'selected="selected"';
+                            }?>">Student</option>
                                   <option value="other<?php if (isset($_POST['employmentStatus']) && $_POST['employmentStatus'] == 'other') {
-                                    echo 'selected="selected"';
-                                  }?>">Other</option>
+                                echo 'selected="selected"';
+                            }?>">Other</option>
                                 </select>
                                 <span class="errorMessage" id="error_employment_status"></span>
                               </p>
@@ -343,20 +318,20 @@ zzzzzz
                                 <select name="sales_experience">
                                   <option value="">Select...</option>
                                   <option value="0-1<?php if (isset($_POST['salesExperience']) && $_POST['salesExperience'] == '0-1') {
-                                    echo 'selected="selected"';
-                                  }?>">0-1 years</option>
+                                echo 'selected="selected"';
+                            }?>">0-1 years</option>
                                   <option value="2-3<?php if (isset($_POST['salesExperience']) && $_POST['salesExperience'] == '2-3') {
-                                    echo 'selected="selected"';
-                                  }?>">2-3 years</option>
+                                echo 'selected="selected"';
+                            }?>">2-3 years</option>
                                   <option value="3-4<?php if (isset($_POST['salesExperience']) && $_POST['salesExperience'] == '3-4') {
-                                    echo 'selected="selected"';
-                                  }?>">3-4 years</option>
+                                echo 'selected="selected"';
+                            }?>">3-4 years</option>
                                   <option value="4-5<?php if (isset($_POST['salesExperience']) && $_POST['salesExperience'] == '5-6') {
-                                    echo 'selected="selected"';
-                                  }?>">5-6 years</option>
+                                echo 'selected="selected"';
+                            }?>">5-6 years</option>
                                   <option value="6-plus<?php if (isset($_POST['salesExperience']) && $_POST['salesExperience'] == '6-plus') {
-                                    echo 'selected="selected"';
-                                  }?>">6 plus years</option>
+                                echo 'selected="selected"';
+                            }?>">6 plus years</option>
                                 </select>
                                 <span class="errorMessage" id="error_sales_experience"></span>
                               </p>
@@ -366,20 +341,20 @@ zzzzzz
                                 <select name="years_broker">
                                   <option value="">Select...</option>
                                   <option value="0-1<?php if (isset($_POST['yearsBroker']) && $_POST['yearsBroker'] == '0-1') {
-                                    echo 'selected="selected"';
-                                  }?>">0-1 years</option>
+                                echo 'selected="selected"';
+                            }?>">0-1 years</option>
                                   <option value="2-3<?php if (isset($_POST['yearsBroker']) && $_POST['yearsBroker'] == '2-3') {
-                                    echo 'selected="selected"';
-                                  }?>">2-3 years</option>
+                                echo 'selected="selected"';
+                            }?>">2-3 years</option>
                                   <option value="3-4<?php if (isset($_POST['yearsBroker']) && $_POST['yearsBroker'] == '3-4') {
-                                    echo 'selected="selected"';
-                                  }?>">3-4 years</option>
+                                echo 'selected="selected"';
+                            }?>">3-4 years</option>
                                   <option value="4-5<?php if (isset($_POST['yearsBroker']) && $_POST['yearsBroker'] == '5-6') {
-                                    echo 'selected="selected"';
-                                  }?>">5-6 years</option>
+                                echo 'selected="selected"';
+                            }?>">5-6 years</option>
                                   <option value="6-plus<?php if (isset($_POST['yearsBroker']) && $_POST['yearsBroker'] == '6-plus') {
-                                    echo 'selected="selected"';
-                                  }?>">6 plus years</option>
+                                echo 'selected="selected"';
+                            }?>">6 plus years</option>
                                 </select>
                                 <span class="errorMessage" id="error_years_broker"></span>
                               </p>
