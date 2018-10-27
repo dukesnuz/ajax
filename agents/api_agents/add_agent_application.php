@@ -143,6 +143,7 @@ if ($errorFlag):
     // email me when appliction submitted
     if (LIVE) {
         mail(CONTACT_EMAIL, 'Agent Application', 'Agent Application received', 'From:'.CONTACT_EMAIL);
+        //send email to applicant
     }
   endif;
 else:
