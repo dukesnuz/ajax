@@ -156,7 +156,7 @@ zzzzzz
 
                     <p>
                       State
-                      <select name="states" id = 'selectState'>
+                      <select name="state" id = 'selectState'>
                       </select>
                      <span class="errorMessage" id="error_state"></span></p>
 
