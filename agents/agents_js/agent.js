@@ -5,7 +5,6 @@
 function submitForm(e) {
   "use strict";
   e.preventDefault();
-  console.log('submit');
   // clear error messages
   $('formResponse').innerHTML = '';
   $('error_first_name').innerHTML = '';
