@@ -9,7 +9,7 @@
   </title>
   <meta charset="UTF-8" />
   <meta name="description" content ="Freight broker agent application">
-  <meta name="keywords" content="freight, broker, agents, truck, sales">
+  <meta name="keywords" content="freight, broker, agents, truck, sales, work as a freight broker, from home">
   <meta name="author" content="David Petringa, Coded October 2018">
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
@@ -26,12 +26,12 @@
   <?php endif; ?>
 
   <script src = "http://www.dukesnuz.com/js_libs/dukes_states_object.js"></script>
-  <script src = "http://www.dukesnuz.com/js_libs/dukes.javascript.js?<?php echo rand(1, 1000000); ?>"></script>
+  <script src = "http://www.dukesnuz.com/js_libs/dukes.javascript.js"></script>
 
   <?php if (LIVE): ?>
-    <script src = "../agents/agents_js/agent.js?<?php echo rand(1, 1000000); ?>"></script>
+    <script src = "../agents/agents_js/agent.js"></script>
   <?php else: ?>
-    <script src = "../agents_js/agent.js?<?php echo rand(1, 1000000); ?>"></script>
+    <script src = "../agents_js/agent.js"></script>
   <?php endif; ?>
 
 </head>
@@ -103,7 +103,6 @@ zzzzzz
     <h2>Ajax Transport Freight Broker Agent Application</h2>
   </header>
   <div>
-
     <div id ="form_center">
       <div id ='formResponse'></div>
 
