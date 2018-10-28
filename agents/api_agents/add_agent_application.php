@@ -138,15 +138,56 @@ if ($errorFlag):
   $statement_add -> execute();
   $statement_add -> closeCursor();
 
-  if (!empty($statement_add)):
+  // add email to loaded and rolling db emails table
+  // set variables
+  $ip = $_SERVER['REMOTE_ADDR'];
+  $collected_from = 'agent_application';
+  $address_id = md5(uniqid(rand(), true));
+  $email_hash = sha1($email);
+
+  // connect to loaded and rolling db
+  require_once('../../includes_2/database.php');
+
+  $q = "INSERT INTO emails(collected_from, address, address_id, email_hash, ip)
+                         VALUES(:collected_from, :address, :address_id, :email_hash, :ip)";
+
+  $statement = $dbl->prepare($q);
+  $statement->bindValue('collected_from', $collected_from);
+  $statement->bindValue(':address', $email);
+  $statement->bindValue(':address_id', $address_id);
+  $statement->bindValue(':email_hash', $email_hash);
+  $statement->bindValue(':ip', $ip);
+  $statement->execute();
+  $statement->closeCursor();
+
+  if (!empty($statement_add) && !empty($statement)):
     echo '200';
-    // email me when appliction submitted
-    if (LIVE) {
-        mail(CONTACT_EMAIL, 'Agent Application', 'Agent Application received', 'From:'.CONTACT_EMAIL);
-        //send email to applicant
-    }
+  else:
+    echo 'error';
+    if (LIVE):
+    mail(CONTACT_EMAIL, 'Agent App Error', "page agents/api_agent_application.php\r\nline 168 error #1", CONTACT_EMAIL);
   endif;
-else:
-  echo 'error';
-endif; // end flag
-/*******************add email address to emails in db*********************************************/
+  endif;
+
+  if (LIVE):
+    //send email to applicant any company
+    $subject = 'Ajax Agent Application Recieved';
+
+    $body  = "$first_name\r\n";
+    $body .= "Thank you for filling out our agent application.\r\n";
+    $body .= "We look forward to revieving your information.\r\n";
+    $body .= "We will contact you if we we have any questions or if your application progesses to the next step.\r\n";
+    $body .= "Thank you,\r\n";
+    $body .= "Ajax Transport\r\n";
+    $body .= "http://www.ajaxtransport.com\r\n";
+
+    $headers = "From:".CONTACT_EMAIL."\r\n" . "Bcc:".CONTACT_EMAIL. "";
+    mail($email, $subject, $body, $headers);
+  endif; // END   if(LIVE):
+
+  else:
+    echo 'error';
+    if (LIVE):
+      mail(CONTACT_EMAIL, 'Agent App Error', "page agents/api_agent_application.php\r\nline 191 error #2", CONTACT_EMAIL);
+    endif;
+  endif; // end flag
