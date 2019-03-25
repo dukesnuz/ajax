@@ -236,7 +236,7 @@
                                       </p>
 
                                       <p>
-                                        <label>Can you show proof of your legal rigt to work in the United States?</label><br />
+                                        <label>Can you show proof of your legal right to work in the United States?</label><br />
                                         <input type="radio" name="right_works" value="true"
                                         <?php if (isset($_POST['right_works']) && $_POST['right_works'] == "true") {
                                         echo 'checked="checked"';
