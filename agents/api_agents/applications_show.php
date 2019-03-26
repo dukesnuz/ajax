@@ -1,7 +1,7 @@
 <?php
 include ('../../site_utilities_v2/config.inc.php');
 
-if (empty($_GET['a']) && $_GET['a'] !== 'get_applications' && empty($_GET['x']) && $_GET['x'] !== AJAX_API_KEY) {
+if (empty($_GET['a']) || $_GET['a'] !== 'get_applications' || empty($_GET['x']) || $_GET['x'] !== AJAX_API_KEY) {
 	die();
 }
 
