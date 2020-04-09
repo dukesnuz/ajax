@@ -29,13 +29,14 @@ home.html
 images/
 includes_2/
 index.php
-indexOLD.php
+indexOLDphp
 index_new.php
 jquery/
 js/
 landing_pages/
 mailgun/
 my_jquery/
+/mysql
 nbproject/
 newhtml.html
 not_used/
